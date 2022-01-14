@@ -24,6 +24,12 @@ const Exercise = mongoose.model('Exercise', exerciseSchema);
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static('public'));
+
+app.use((req, res, next) => {
+  console.log(`[${req.method}] ${req.url.href} - ${req.ip}`);
+  next();
+})
+
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 });
