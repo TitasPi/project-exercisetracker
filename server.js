@@ -81,13 +81,13 @@ app.post('/api/users/:id/exercises', async (req, res) => {
   try {
     console.log(req.body);
     // res.json({body: req.body});
-    const user = await User.findOne({ _id: req.body[':_id'] });
+    const user = await User.findOne({ _id: req.params.id });
     let date = Date.parse(req.body.date);
     if (isNaN(date)) date = Date.now();
     const exercise = Exercise({username: user.username, description: req.body.description, duration: req.body.duration, date: date});
     await exercise.save();
     res.json({
-      _id: req.body[':_id'],
+      _id: req.params.id,
       username: user.username,
       date: new Date(date).toDateString(),
       duration: exercise.duration,
