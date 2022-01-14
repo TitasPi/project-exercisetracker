@@ -63,7 +63,7 @@ app.get('/api/users/:id/logs', async (req, res) => {
       });
     });
   
-    res.json({_id: user._id, username: user.username, count: exercises.length, logs: exercisesList});
+    res.json({_id: user._id, username: user.username, count: exercises.length, log: exercisesList});
   } catch (error) {
     console.error(error);
     res.json({error: error});
@@ -78,7 +78,13 @@ app.post('/api/users/:id/exercises', async (req, res) => {
     if (isNaN(date)) date = Date.now();
     const exercise = Exercise({username: user.username, description: req.body.description, duration: req.body.duration, date: date});
     await exercise.save();
-    res.json(exercise);
+    res.json({
+      _id: req.body[':_id'],
+      username: user.username,
+      date: date,
+      duration: exercise.duration,
+      description: exercise.description
+    });
   } catch (error) {
     res.json({error: error});
   }
