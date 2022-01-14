@@ -40,6 +40,7 @@ app.get('/api/users', async (req, res) => {
 })
 
 app.post('/api/users', async (req, res) => {
+  console.log(req.body);
   if(req.body.username === '') return res.json({error: 'You can\'t use empty username'});
 
   const user = new User({ username: req.body.username });
@@ -78,6 +79,7 @@ app.get('/api/users/:id/logs', async (req, res) => {
 
 app.post('/api/users/:id/exercises', async (req, res) => {
   try {
+    console.log(req.body);
     // res.json({body: req.body});
     const user = await User.findOne({ _id: req.body[':_id'] });
     let date = Date.parse(req.body.date);
