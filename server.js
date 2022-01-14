@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static('public'));
 
 app.use((req, res, next) => {
-  console.log(`[${req.method}] ${req.url.href} - ${req.ip}`);
+  console.log(`[${req.method}] ${req.url} - ${req.ip}`);
   next();
 })
 
